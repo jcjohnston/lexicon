@@ -1,0 +1,457 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Lexitron</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style>
+  body {
+    font-family: 'Open Sans', arial, sans-serif;
+    color: #494d55;
+    font-size: 14px;
+  }
+  html, body {
+    height: 100%;
+  }
+  .sidenav {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #222222;
+    overflow-x: hidden;
+    padding-top: 20px
+  }
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #cfcfcf;
+    display: block;
+  }
+  .sidenav a hover {
+    color: #f1f1f1;
+  }
+  .main {
+    margin-left: 160px;
+    padding: 0px 10px;
+  }
+  .main-icon {
+    height: 70px;
+    padding-right: 15px;
+    vertical-align: middle;
+  }
+  .main-title {
+    font-size: 24pt
+  }
+  .section-title {
+    color: #0000f8;
+    padding-top: 10px;
+  }
+  .subsection-title {
+    color: #008f00;
+    font-style: italic;
+  }
+  .multi-column-list {
+    list-style-type: none;
+    column-width: 12em;
+    column-gap: 3em;
+    column-rule-style: solid;
+    column-rule-width: 1px
+  }  
+  p {
+    line-height: 1.25;
+  }
+  p.note
+  {
+    background-color: #f0f7fb;
+    background-image: url("../images/pencil.png");
+    background-position: 9px 0px;
+    background-repeat: no-repeat;
+    border-left: solid 1px #3498db;
+    line-height: 18px;
+    overflow: hidden;
+    padding: 15px 60px;
+  }
+  a {
+    color: #3aa7aa;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: #339597;
+  }
+  a:focus {
+    text-decoration: none;
+  }
+  pre {
+    color: #ff0f00;
+    font-family: monospace;
+  }
+  code {
+    color: #ff0f00;
+    font-size: 14px;
+    font-wdith: bold;
+    font-family: Consolas, Monacor, 'Andale Mono', 'Ubuntu Mono', monospace;
+    line-height: 1.25;
+    display: inline-block;
+  }
+  dt {
+    font-style: italic;
+    padding-top: 4px;
+  }
+  td {
+    padding-right: 6px;
+  }
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 10px;}
+    .sidenav a {font-size: 10px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sidenav">
+<a href="#Introduction">Introduction</a>
+<a href="#Synopsis">Synopsis</a>
+<a href="#Prerequisites">Prerequisites</a>
+<a href="#ConfigFile">Configuration File</a>
+<a href="#LexiconFile">Lexicon File</a>
+<a href="#CSSFile">CSS File</a>
+<a href="#Languages">Language Support</a>
+<a href="#ConsoleInter">Console Interface</a>
+<a href="#TerminalInter">Terminal Interface</a>
+<a href="#GraphicInter">Graphical Interface</a>
+<a href="#Acknowledgements">Acknowledgements</a>
+<a href="#Contact">Contact</a>
+</div>
+
+<div class="main">
+<h1 class="main-title"><img src="../../lexitron.png" class="main-icon">Lexitron</h1>
+
+<h3 id="Introduction" class="section-title">Introduction</h3>
+<p>Lexitron uses an external lexicon file and/or the resources of WordNet to
+check for definitions, related words, pronunciations, homophones, anagrams, and
+regular expressions. Matches may ignore case and/or diacritics. Queries can be
+submitted on the command line or interactively via a dumb console, smart
+terminal, or fully graphical interface.</p>
+
+<h3 id="Synopsis" class="section-title">Synopsis</h3>
+<p>Lexitron can be launched from the command line, or via an icon in a graphical user interface.</p>
+<h4 id="ConsoleLaunch" class="subsection-title">By command</h4>
+<p style="font-weight: bold">Usage: <code>lexitron OPTIONS</code></p>
+<p/>
+<p>OPTIONS:</p>
+<table id="OPTIONSLIST">
+<tr><td><code>-h</code></td><td><code>--help</code></td><td>print this message and exit</td></tr>
+<tr><td><code>-V</code></td><td><code>--version</code></td><td>print version information and exit</td></tr>
+<tr><td><code>-c</code></td><td><code>--icase <i>BOOLEAN</i></code></td><td>ignore letter-case in matching, default: <code>no</code></td></tr>
+<tr><td><code>-d</code></td><td><code>--idiac <i>BOOLEAN</i></code></td><td>ignore diacritics in matching, default: <code>no</code></td></tr>
+<tr><td><code>-l</code></td><td><code>--language <i>LANGUAGE</i></code></td><td>use language <i>LANGUAGE</i> for WordNet lookups, default: <code>English</code></td></tr>
+<tr><td><code>-f</code></td><td><code>--lexicon <i>LEXICON-FILE</i></code></td><td>use lexicon file <i>LEXICON-FILE</i> for spelling and pronunciation lookups</td></tr>
+<tr><td><code>-i</code></td><td><code>--interface <i>INTERFACE</i></code></td><td>use the specified kind of user interface, default: <code>console</code></td></tr>
+<tr><td><code>-s</code></td><td><code>--style <i>CSS-FILE</i></code></td><td>use CSS file <i>CSS-FILE</i> to control appearance of GUI output</td></tr>
+<tr><td><code>-x</code></td><td><code>--exec <i>COMMAND</i></code></td><td>execute console-style command <i>COMMAND</i> and exit</td></tr>
+</table>
+
+<p>In these options, the terms in italics have the following meanings:</p>
+<dl>
+<dt><code>BOOLEAN</code></dt>
+<dd><code>1|0</code>, <code>true|false</code>, <code>yes|no</code>,
+<code>on|off</code> without regard to case</dd>
+<dt><code>COMMAND</code></dt>
+<dd>Any command accepted by the <a href="#ConsoleInter">console user
+interface</a> (which use of the <code>-x/--exec</code> command implies)</dd>
+<dt><code>CSS-FILE</code></dt>
+<dd>The path to a <a href="#Stylesheet">CSS file</a> conforming to CSS 2.1 or
+later</dd>
+<dt><code>INTERFACE</code></dt>
+<dd><code>console|terminal|graphic</code> (or any unique prefix of one of
+these) without regard to case, representing respectively a <a
+href="#ConsoleInter">dumb-console</a>, <a
+href="#TerminalInter">smart-terminal</a> or <a href="#GraphicInter">fully
+graphical</a> user interface</dd>
+<dt><code>LANGUAGE</code></dt>
+<dd>The name of any of the <a href="WordNet-Languages">supported languages</a>
+(or any unique prefix of one of these) without regard to case</dd>
+<dt><code>LEXICON-FILE</code></dt>
+<dd>The path to a user-supplied <a href="#LexFile">lexicon file</a> containing
+spellings and, optionally, pronunciations</dd>
+</dl>
+
+<p>Option names are case-sensitive. Long-form option names can be abbreviated
+to any unique prefix. For instance, <code>--icase</code> can be given as
+<code>--ic</code> but not as <code>--i</code> (ambiguous with
+<code>--idiac</code> and <code>--interface</code>) or as <code>--iCase</code>
+(wrong case).</p>
+
+<p>Options may be specified in a <a href="#ConfigFile">configuration file</a>.
+Command-line options have precedence over configuration-file options, which in
+turn have precedence over built-in options.</p>
+
+<h4 id="GUILaunch" class="subsection-title">By icon</h4>
+<p>Lexitron can be launched by activating its icon. The details &mdash; where
+the icon is located, whether it requires a single click or a double click, and
+so on &mdash; will vary from system to system. It may be that when Lexitron is
+launched in this way, options can only be set in the <a
+href="#ConfigFile">configuration file</a>.</p>
+
+<h3 id="Prerequisites" class="section-title">Prerequisites</h3>
+<p>Lexitron requires Python 3 and its standard library to run.</p>
+<p>The <a href="#GraphicInter">graphical user interface</a> requires PyQt5 to
+run.</p>
+<p>The WordNet features &mdash; definitions, examples, and related words
+&mdash; require the <a href="https://www.nltk.org/index.html">Natural Language
+Toolkit</a> (NLTK, which in turn requires at least Python 3.5), and also the
+WordNet corpus and lemmatizer, which can be downloaded as part of the NLTK
+data.</p>
+<p>The Python import commands executed to supply these facilities are
+equivalent to:</p>
+<pre>
+    from nltk.corpus import wordnet
+    from nltk.stem import WordNetLemmatizer
+</pre>    
+<p>WordNet contains only lexical words (nouns, adjectives, verbs and some
+adverbs), and not function words. A user-supplied lexicon is required for
+Lexitron to recognize function words.</p>
+<p>Pronunciations can only come from a user-supplied lexicon file. See <a
+href="#LexiconFile">below</a> for further details.</p>
+
+<p class="note">It is possible to run Lexitron with neither a user-supplied
+lexicon nor WordNet, but in that case the only action available in either of
+the text-only user interfaces will be to quit. (In the <a
+href="#GraphicInterface">graphical user interface</a> you will also be able to
+load a lexicon file.)</p>
+
+<h3 id="ConfigFile" class="section-title">The Configuration File</h3>
+<p>Default options can be set in a per-user configuration file, called
+<code>.lexitronrc</code> and located in the user’s home directory.<p>
+<p>All command-line options can be set, using their long-form option name
+without the leading ‘<code>--</code>’ and without regard to case. The same
+abbreviations that are recognized on the command line can also be used in the
+configuration file.<p>
+<p>An example configuration (but without the indentation) would be:<p>
+<pre>
+    [DEFAULT]
+    Lexicon = /path/to/LexiconFile
+    iDiac = True
+    Interface = terminal
+    Language = Catalan
+</pre>
+<p>The <code>[DEFAULT]</code> heading is obligatory. All other lines are for
+exemplification only. (Too much information on the format of the configuration
+file can be had from the <a
+href="https://docs.python.org/3/library/configparser.html">Python
+documentation</a>.)</p>
+
+<h3 id="LexiconFile" class="section-title">The Lexicon File</h3>
+<p>The lexicon file is a plain-text list of entries encoded in UTF-8. There
+must be one word or phrasal entry per line. The entries must be unique but need
+not be sorted.</p>
+<p>Comment lines are allowed and ignored. They begin with <code>#</code>.</p>
+<p>Unix-like systems including Linux and Mac OSX have a suitable lexicon file
+located at <code>/usr/share/dict/words</code>, and this is the built-in
+default. On Windows systems, you will need to build or access a lexicon file
+externally, and there is no built-in default.</p>
+<p>Any spelling may be followed, after a <code>&lt;TAB&gt;</code> character, by
+a list of possible pronunciations, each separated by a comma followed by a
+space.</p>
+<p>Substantial open-source files of pronunciations are not common. However, the
+<a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict">CMU Pronouncing
+Dictionary</a> can be freely downloaded and gives General American
+pronunciations for more than 134,000 words in ARPAbet transcription.</p>
+
+<p class="note">You will need to undertake a certain amount of processing to be
+able to use the CMU file with Lexitron: the file is encoded in ISO 8859,
+entries are entirely in upper case, and variants are given in separate entries.
+You may also prefer to use some phonetic transciption other than ARPAbet. You
+will need to address these issues, possibly combining with a separate wordlist
+that uses mixed case.</p>
+
+<h3 id="CSSFile" class="section-title">The CSS File</h3>
+<p>The CSS file is interpreted by PyQt5 rather than a browser and therefore
+needs to conform to the subset of CSS that PyQt5 recognizes. See <a
+href="https://doc.qt.io/qt-5/stylesheet-reference.html">the PyQt5
+documentation</a> for complete details.</p>
+
+<p>The following example of a CSS file illustrates both the default style
+settings and all the CSS selectors that can usefully be accessed:</p>
+<pre>
+    body {}
+    .headword  { color: red; }
+    .synset { color: blue; }
+    .rellist {}
+    .relname { font-style: italic; }
+    .reldata {}
+    .words {}
+</pre>
+
+<h3 id="Languages" class="section-title">Language Support</h3>
+<p>Lexitron provides two kinds of support for non-English languages: in the
+application’s interface, and in the languages for which WordNet data is
+available.</p>
+
+<h4 id="Application-Languages" class="subsection-title">Internationalization of the application interface</h4>
+
+<p>Lexitron has support for internationalization (I18N) and localization (L10N)
+via the <code>gettext</code> system. This means that, if an appropriate L10N
+file is available, all prompts, menus, widget labels, messages and so on will
+appear in the language of the current locale.</p> <p>Depending on the operating
+environment, the locale language can be set by the user globally, and may be
+able to be set on a per-instance basis. For example, on a Unix-like system, the
+following command may launch Lexitron with a graphical user interface in the
+French-language locale:</p>
+
+<pre>
+    $ LANGUAGE=fr lexitron --interface graphic
+</pre>
+
+<p class="note">Please <a href="Contact">contact the author</a> if you are
+interested in creating a localization of Lexitron.</p>
+
+<h4 id="WordNet-Languages" class="subsection-title">WordNet languages</h4>
+<p>WordNet information can be retrieved in a number of languages as well as
+English.</p>
+
+<p>WordNet internally uses ISO 639-3 three-letter codes to identify languages,
+but Lexitron options and interfaces display and accept natural-language names
+(or unique abbreviations of them). These are the languages currently
+available:</p>
+
+<ul class="multi-column-list">
+    <li>Basque</li>
+    <li>Bulgarian</li>
+    <li>Catalan</li>
+    <li>Croatian</li>
+    <li>Danish</li>
+    <li>Dutch</li>
+    <li>English</li>
+    <li>Finnish</li>
+    <li>French</li>
+    <li>Galician</li>
+    <li>Hebrew</li>
+    <li>Indonesian</li>
+    <li>Italian</li>
+    <li>Japanese</li>
+    <li>Mandarin Chinese</li>
+    <li>Modern Greek</li>
+    <li>Norwegian Bokmål</li>
+    <li>Norwegian Nynorsk</li>
+    <li>Persian</li>
+    <li>Polish</li>
+    <li>Portuguese</li>
+    <li>Slovenian</li>
+    <li>Spanish</li>
+    <li>Standard Arabic</li>
+    <li>Standard Malay</li>
+    <li>Swedish</li>
+    <li>Taiwan Chinese</li>
+    <li>Thai</li>
+    <li>Tosk Albanian</li>
+</ul>
+
+<p>WordNet-derived information is displayed under WordNet “synonym-sets” or
+“synsets”, which are used by WordNet internally as labels in a
+language-agnostic way. To emphasize their status as WordNet-internal labels,
+Lexitron displays synset designators within vertical bars. Thus the following
+entry for related words to <i>perro</i> (‘dog’) is displayed in one of
+Lexitron’s text-only user interfaces when the language is set to Spanish:</p>
+
+<pre>
+    perro
+        |dog N 01|
+            Synonyms:
+                can perro
+            Hypernyms:
+                cánido
+            Hyponyms:
+                basenji chucho gozque mestizo grifón pug spitz
+        |rotter N 01|
+            Synonyms:
+                perro
+            Hypernyms:
+                antipático desagradable
+</pre>
+
+<p class="note">WordNet has a built-in lemmatizer for English only. This means
+that, when the language is set to English, you can enter an inflected form such
+as <i>houses</i> or <i>housed</i> and see information about <i>house</i> as a
+noun and/or a verb as appropriate. The WordNet interface used by Lexitron does
+not perform lemmatization in any other language, so non-English words must be
+entered in their base or dictionary form in order to retrieve WordNet-derived
+information.</p>
+
+<h3 id="ConsoleInter" class="section-title">The Console Interface</h3>
+
+<p>The console interface can be used interactively (for example, over a network
+connection) and is also the basis for non-interactive (possibly scripted) use
+of Lexitron. All output goes to the standard output file and can therefore be
+redirected in non-interactive use. Commands entered interactively must be
+followed by the <code>&lt;Enter&gt;</code> or <code>&lt;Return&gt;</code>
+key.</p>
+
+<p>Commands are whole words which may be abbreviated to any unique prefix,
+disregarding case. The command <code>?</code> displays the list of available
+commands, while <code>=</code> displays information about the current lexicon
+file (number of entries, and number of pronunciations excluding and including
+variants), as well as the current language for WordNet lookups. All the
+remaining commands other than <code>Available</code> and <code>Quit</code>
+require an argument.</p>
+
+The following screenshot shows the console interface during a session where the
+application interface language is English and the WordNet lookup language is
+Polish.</p>
+
+<img style="padding-left: 20px" src="../images/lexitron-console.png"/>
+
+<p class="note">The argument to the <code>-x/--exec</code> command-line option
+may contain multiple commands separated by a semicolon (<code>;</code>). Also,
+<code>-x/--exec</code> may be given multiple times. However given, Lexitron
+will execute all the commands in sequence and then exit.</p>
+
+<h3 id="TerminalInter" class="section-title">Terminal Interface</h3>
+
+<p>The terminal interface emulates a 1980s-style “smart” terminal such as the
+DEC VT100, with single-keystroke input and cursor-addressed output. Unlike the
+<a href="GraphicInter">graphical user interface</a>, it does not require the
+installation of any modules beyond those in the Python standard library.</p>
+
+<p>All commands are invoked by pressing a single key. Commands other than Quit
+will then prompt for an argument, which will need to be terminated by pressing
+the <code>&lt;Enter&gt;</code> or <code>&lt;Return&gt;</code> key. Where the
+output exceeds the available screen space, it is “paged” into smaller chunks,
+each followed by a prompt which offers options to scroll up and down or
+exit.</p>
+
+<p>The following screenshot shows the terminal interface during a session where
+the application interface language is English and the WordNet lookup language
+is Japanese.</p>
+
+<img style="padding-left: 20px" src="../images/lexitron-terminal.png"/>
+
+<h3 id="GraphicInter" class="section-title">Graphical Interface</h3>
+
+<p>The graphical user interface is intended to be self-explanatory. Its exact
+appearance will depend on the environment in use, as well as any <a
+href="#CSSFile">CSS file</a> supplied by the user. The following is a
+screenshot of a typical session in the Gnome environment of a Linux-based
+operating system, with the French-language version of Lexitron using Spanish
+for WordNet lookups, and no user-specified CSS file:</p>
+
+<img style="padding-left: 20px" src="../images/lexitron-gui.png"/>
+
+<h3 id="Acknowledgements" class="section-title">Acknowledgements</h3>
+<p>With thanks to:</p>
+<ul style="list-style-type: square">
+<li>the <a href="http://www.speech.cs.cmu.edu/cgi-bin/cmudict">CMU Pronouncing Dictionary</a></li>
+<li><a href="https://wordnet.princeton.edu">WordNet</a></li>
+<li>the <a href="http://compling.hss.ntu.edu.sg/omw">Open Multilingual WordNet</a></li>
+</ul>
+
+<h3 id="Contact" class="section-title">Contact</h3>
+<p>Please contact the author at <code>&lt;jasoncjohnston at gmail dot
+com&gt;</code>.</p>
+</div>
+</body> </html>
+
+

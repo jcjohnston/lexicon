@@ -1,0 +1,24 @@
+Lexitron source files
+
+
+lexicon:
+-rw-r--r-- 1 jason jason  6477 Jun 18 14:09 lexCon.py
+-rw-r--r-- 1 jason jason 21913 Jun 18 12:43 lexGui.py
+-rw-r--r-- 1 jason jason 14827 Jun 18 12:32 lexicon.py
+-rwxr-xr-x 1 jason jason   201 Feb 20 05:44 lexitron.desktop
+-rw-r--r-- 1 jason jason  9344 Jul 12  2019 lexitron.png
+-rwxr-xr-x 1 jason jason  8194 Jun 18 12:44 lexitron.py
+-rw-r--r-- 1 jason jason  8886 Jun 18 14:19 lexOut.py
+-rw-r--r-- 1 jason jason  5162 Jun 18 12:41 lexStrings.py
+-rw-r--r-- 1 jason jason  7693 Jun 18 12:45 lexTerm.py
+-rw-r--r-- 1 jason jason   996 Jun 17 13:47 Makefile
+
+help:
+-rwxr-xr-x 1 jason jason 23838 Jun 17 18:03 lexDoc.py
+-rw-r--r-- 1 jason jason  1029 Jun 17 13:47 Makefile
+
+my:
+-rw-r--r-- 1 jason jason 1180 Jun 18 12:15 error.py
+-rw-r--r-- 1 jason jason  721 Jun 18 12:15 pgettext.py
+-rw-r--r-- 1 jason jason 2338 Jun 18 12:13 terminal.py
+-rw-r--r-- 1 jason jason 2169 Jun 18 12:14 textutils.py

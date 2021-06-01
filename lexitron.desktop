@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=0.9
+Name=Lexitron
+Exec=/home/jason/dev/src/python3/lexicon/lexitron.py --interface graphic
+Icon=/home/jason/dev/src/python3/lexicon/lexitron.png
+Terminal=false
+Type=Application
